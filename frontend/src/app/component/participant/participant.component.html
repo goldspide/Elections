@@ -1,0 +1,132 @@
+<nav class="navbar nabar-light bg-primary">
+  <div class="container-fluid">
+    <h1 style="color: aliceblue;">Participant</h1>
+    <div class="d-flex">
+      <button (click)="clickAddParticipant()" type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" (click)="openModal()" class="btn btn-success">Add Employee</button>
+
+    </div>
+
+  </div>
+</nav>
+
+<table class="table mt-3">
+  <thead>
+    <tr>
+      <th scope="col">Id</th>
+      <th scope="col">Nom</th>
+      <th scope="col">Num_cni</th>
+      <th scope="col">Status</th>
+      <th scope="col">Etat</th>
+      <th scope="col">Age</th>
+      <th scope="col">Region</th>
+      <th scope="col">Telephone</th>
+      <th scope="col">Login </th>
+      <!-- <th scope="col">Motdepasse</th> -->
+      <th scope="col">Sexe</th>
+      <th scope="col">Email</th>
+      <th scope="col">Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let participant of ParticipantData">
+      <th>{{participant.id}}</th>
+      <th>{{participant.nom}}</th>
+      <th>{{participant.num_cni}}</th>
+      <th>{{participant.status}}</th>
+      <th>{{participant.etat}}</th>
+      <th>{{participant.age}}</th>
+      <th>{{participant.id_region}}</th>
+      <th>{{participant.telephone}}</th>
+      <th>{{participant.login}}</th>
+      <!-- <th>{{participant.password}}</th> -->
+      <th>{{participant.sexe}}</th>
+      <th>{{participant.email}}</th>
+    <td>
+      <button (click)="modifierParticipant(participant)" type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" (click)="openModal()" class="btn btn-info">Edit</button>
+      <button (click)="deleteParticipant(participant)" class="btn btn-danger mx-3 ">Delete</button>
+    </td>
+  </tr>
+  </tbody>
+</table>
+
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Detaile sur le Participant</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup] = "formValue">
+          <div class="form-group mb-3">
+            <label for="exampleInputEmail1">Nom</label>
+            <input type="text" formControlName="Nom" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Entez votre Nom">
+          </div>
+
+          <div class="form-group mb-3">
+            <label >Num_cni</label>
+            <input type="text" formControlName="Num_cni" class="form-control" id="exampleInputPassword1" placeholder="Entrez votre Prenom">
+          </div>
+
+          <div class="form-group mb-3">
+            <label >Sexe</label>
+            <input type="text" formControlName="Sexe" class="form-control" id="exampleInputPassword1" placeholder="Entrez le sexe en M ou F">
+          </div>
+
+          <div class="form-group mb-3">
+            <label >Email</label>
+            <input type="email" formControlName="Email" class="form-control" id="exampleInputPassword1" placeholder="Entrez votre Email">
+          </div>
+
+          <div class="form-group mb-3">
+            <label >Telephone</label>
+            <input type="text" formControlName="Telephone" class="form-control" id="exampleInputPassword1" placeholder="Entrez votre Telephone">
+          </div>
+
+          <div class="form-group mb-3">
+            <label >Id_Region</label>
+            <select>
+              <option>fait un choix</option>
+              <option *ngFor="let region of RegionData" value="{{region.id}}">{{region.id}}</option>
+            </select>
+
+          </div>
+
+          <div class="form-group mb-3">
+            <label >Mot de passe</label>
+            <input type="text" formControlName="Password" class="form-control" id="exampleInputPassword1" placeholder="Entrez votre mot de passe">
+          </div>
+
+          <div class="form-group mb-3">
+            <label >status</label>
+            <input type="text" formControlName="Status" class="form-control" id="exampleInputPassword1" placeholder="Votre status est">
+          </div>
+
+          <div class="form-group mb-3">
+            <label >Etat</label>
+            <input type="text" formControlName="Etat" class="form-control" id="exampleInputPassword1" placeholder="Votre etat est">
+          </div>
+
+          <div class="form-group mb-3">
+            <label >Age</label>
+            <input type="number" formControlName="Age" class="form-control" id="exampleInputPassword1" placeholder="Entrez votre age">
+          </div>
+
+          <div class="form-group mb-3">
+            <label >Login</label>
+            <input type="text" formControlName="Login" class="form-control" id="exampleInputPassword1" placeholder="Entrez votre Login">
+          </div>
+
+
+        </form>
+      </div>
+      <div class="modal-footer mb-3">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="doSomeThing()">Close</button>
+        <button *ngIf="showAdd" type="button" class="btn btn-primary" (click)="postParticipant()">Add</button>
+        <button *ngIf="showUpdate" type="button" class="btn btn-primary" (click)="updateParticipant()">Update</button>
+      </div>
+    </div>
+  </div>
+</div>
