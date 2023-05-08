@@ -22,7 +22,7 @@ class ParticipantController extends Controller
         //
 
         $participant = Participant::all();
-        return response()->json($participant,201);
+        return response()->json($participant, 201);
     }
 
     /**
@@ -43,50 +43,44 @@ class ParticipantController extends Controller
         //     'email' => 'required|email|unique:participant',
         // ]);
 
-        try{
+        try {
             DB::beginTransaction();
-        $participant = Participant:: create([
-            'nom' => $request->nom,
-            'num_cni' => $request->num_cni,
-            'age' => $request->age,
-            'sexe' => $request->sexe,
-            'status' => $request->status,
-            'id_region' => $request->id_region,
-            'login' => $request->login,
-            'password' =>Hash::make($request->password),
-            'email' => $request->email,
-            'etat' => $request->etat,
-            'telephone' => $request->telephone,
-        ]);
-
-        DB::commit();
-
-
-        return response()->json($participant,201);
-    }catch(Throwable $th){
+            $participant = Participant::create([
+                'nom' => $request->nom,
+                'num_cni' => $request->num_cni,
+                'age' => $request->age,
+                'sexe' => $request->sexe,
+                'status' => $request->status,
+                'id_region' => $request->id_region,
+                'login' => $request->login,
+                'password' => Hash::make($request->password),
+                'email' => $request->email,
+                'etat' => $request->etat,
+                'telephone' => $request->telephone,
+            ]);
+            DB::commit();
 
 
-        return response()->json('{"erreur": "impossible de squvegarde"}',404);
-
-    }
-
-
+            return response()->json($participant, 200);
+        } catch (Throwable $th) {
+            return response()->json('{"erreur": "impossible de sauvegarde"}', 405);
+        }
     }
 
     /**
      * Display the specified resource.
      */
-    public function show()
+    public function show(Region $region)
     {
         //
         $region = Region::all();
-        return response()->json($region,200);
+        return response()->json($region, 200);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request,$id)
+    public function update(Request $request, $id)
     {
         //
         try {
@@ -109,10 +103,10 @@ class ParticipantController extends Controller
 
             $participant->update($request->all());
             DB::commit();
-            return response()->json($participant,200);
+            return response()->json($participant, 200);
         } catch (\Throwable $th) {
             //throw $th;
-            return response()->json('erreur de mise a jour',500);
+            return response()->json('erreur de mise a jour', 500);
         }
     }
 
@@ -125,31 +119,29 @@ class ParticipantController extends Controller
         try {
             //code...
             DB::beginTransaction();
-            $participant=Participant::find($id);
+            $participant = Participant::find($id);
             $participant->delete();
             DB::commit();
-          return response()->json('participant suprimer avec succes',200);
-
+            return response()->json('participant suprimer avec succes', 200);
         } catch (\Throwable $th) {
             //throw $th;
-            return response()->json('erreur au niveau de la supression',500);
+            return response()->json('erreur au niveau de la supression', 500);
         }
-
-
     }
 
-    public function Status($id){
+    public function Status($id)
+    {
         try {
             //code...
-        DB::beginTransaction();
-        $part = Participant::find($id);
-        $part->etat=!($part->etat);
-        $part->update();
-        DB::commit();
-        return response()->json("status mise ajour avec succes",200);
+            DB::beginTransaction();
+            $part = Participant::find($id);
+            $part->etat = !($part->etat);
+            $part->update();
+            DB::commit();
+            return response()->json("status mise ajour avec succes", 200);
         } catch (\Throwable $th) {
             //throw $th;
-            return response()->json('erreur participant inactif',500);
+            return response()->json('erreur participant inactif', 500);
         }
     }
 }

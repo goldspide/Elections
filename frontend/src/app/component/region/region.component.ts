@@ -43,7 +43,7 @@ export class RegionComponent {
   clickAddRegion(){
     this.formValue.reset();
     this.showAdd = true;
-    this.showUpdate= false
+    this.showUpdate= false;
   }
   postRegion(){
     this.regionModel.label = this.formValue.value.label;
@@ -80,6 +80,7 @@ export class RegionComponent {
     this.regionModel.id =region.id;
     this.number=region.id;
     this.formValue.controls['label'].setValue(region.label);
+    
 
   }
   updateRegion(){

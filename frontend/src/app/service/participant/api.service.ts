@@ -9,7 +9,7 @@ export class ApiService {
   constructor(private http: HttpClient) {}
 
   postParticipant(data: any) {
-    return this.http.post<any>('http://localhost:8000/api/participant/', data).pipe(
+    return this.http.post<any>('http://localhost:8000/api/participant', data).pipe(
         map((res: any) => {
           return res;
         })

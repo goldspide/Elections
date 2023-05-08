@@ -1,1 +1,79 @@
-<p>vote works!</p>
+<nav class="navbar nabar-light bg-primary">
+  <div class="container-fluid">
+    <h1 style="color: aliceblue;">Totalite des Vote</h1>
+    <div class="d-flex">
+      <button (click)="clickAddVote()" type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" (click)="openModal()" class="btn btn-success">Add vote</button>
+
+    </div>
+
+  </div>
+</nav>
+
+<table class="table mt-3">
+  <thead>
+    <tr>
+      <th scope="col">Id</th>
+      <th scope="col"> Label</th>
+      <th scope="col">Id_Participant</th>
+      <th scope="col"> Id_Election</th>
+      <th scope="col">Id_region</th>
+      <th scope="col">Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let vote of VoteData">
+      <td>{{vote.id}}</td>
+      <td>{{vote.label}}</td>
+      <td>{{vote.id_participant}}</td>
+      <td>{{vote.id_election}}</td>
+      <td>{{vote.id_bulletin}}</td>
+      <td>
+        <button (click)="modifierVote(vote)" type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" (click)="openModal()" class="btn btn-info">Edit</button>
+        <button (click)="deleteVote(vote)" class="btn btn-danger mx-3 ">Delete</button>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Ajoute un Vote</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup] = "formValue">
+          <div class="form-group mb-3">
+            <label for="exampleInputEmail1">Label</label>
+            <input type="text" formControlName="label" class="form-control"  placeholder="Entre une region">
+          </div>
+
+          <div class="form-group mb-3">
+            <label for="exampleInputEmail1">Id_Participant</label>
+            <input type="number" formControlName="participant" class="form-control"  placeholder="Entre une region">
+          </div>
+
+          <div class="form-group mb-3">
+            <label for="exampleInputEmail1">Id_Election</label>
+            <input type="number" formControlName="election" class="form-control"  placeholder="Entre une region">
+          </div>
+
+          <div class="form-group mb-3">
+            <label for="exampleInputEmail1">Id_Bulletin</label>
+            <input type="number" formControlName="bulletin" class="form-control"  placeholder="Entre une region">
+          </div>
+
+
+        </form>
+      </div>
+      <div class="modal-footer mb-3">
+        <button type="button" id="cancel" class="btn btn-secondary" data-dismiss="modal" (click)="doSomeThing()">Close</button>
+        <button  *ngIf="showAdd" class="btn btn-primary" (click)="postVote()">Add</button>
+        <button *ngIf="showUpdate" type="button" class="btn btn-primary" (click)="updateVote()">Update</button>
+      </div>
+    </div>
+  </div>
+</div>

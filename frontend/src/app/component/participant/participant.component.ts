@@ -58,7 +58,7 @@ export class ParticipantComponent {
     this.participantModel.nom = this.formValue.value.Nom;
     this.participantModel.age = this.formValue.value.Age;
     this.participantModel.etat = this.formValue.value.Etat;
-    this.participantModel.id_region = this.formValue.value.Id_region;
+    this.participantModel.id_region = this.formValue.value.Region;
     this.participantModel.num_cni = this.formValue.value.Num_cni;
     this.participantModel.sexe = this.formValue.value.Sexe;
     this.participantModel.password = this.formValue.value.password;
@@ -89,8 +89,9 @@ export class ParticipantComponent {
   }
 
   getRegion(){
-    this.api.getRegion().subscribe((ress)=>{
-      this.RegionData = ress;
+    this.api.getRegion().subscribe((res)=>{
+      this.RegionData = res;
+      console.log(res)
     });
   }
 
@@ -135,6 +136,14 @@ export class ParticipantComponent {
   }
   updateParticipant() {
     this.participantModel.email = this.formValue.value.Email;
+    this.participantModel.login = this.formValue.value.Login;
+    this.participantModel.etat = this.formValue.value.Etat;
+    this.participantModel.num_cni = this.formValue.value.Num_cni;
+    this.participantModel.telephone = this.formValue.value.Telephone;
+    this.participantModel.status = this.formValue.value.Status;
+    this.participantModel.sexe = this.formValue.value.Sexe;
+    this.participantModel.id_region = this.formValue.value.Region;
+    this.participantModel.age = this.formValue.value.Age;
     this.participantModel.nom = this.formValue.value.Nom;
 
     this.api.UpdateParticipant(this.participantModel, this.number).subscribe(
@@ -145,6 +154,7 @@ export class ParticipantComponent {
         this.formValue.reset();
         let ref = document.getElementById('cancel');
         ref?.click();
+        this.getParticipant();
       },
       (err) => {
         alert('Echec de la mise ajour');
